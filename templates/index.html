@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Viewer</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            padding: 20px;
+            background-color: #f3f4f6;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .controls {
+            margin-bottom: 20px;
+        }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse; /* Ensure that borders are combined */
+        }
+        th, td {
+            border: 2px solid #4b5563; /* Deep gray color */
+        }
+        th {
+            background-color: #1f2937; /* Dark gray for header */
+            color: white; /* White text for header */
+        }
+        tr:nth-child(even) {
+            background-color: #f9fafb; /* Lighter gray for even rows */
+        }
+        tr:nth-child(odd) {
+            background-color: #e5e7eb; /* Slightly darker gray for odd rows */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto">
+        <h1 class="text-3xl font-bold mb-4">MY NIDS</h1>
+        <div class="controls mb-4">
+            <form action="/start" method="post" style="display:inline;">
+                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Start NIDS</button>
+            </form>
+            <form action="/stop" method="post" style="display:inline;">
+                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Stop NIDS</button>
+            </form>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                <thead>
+                    <tr>
+                        <th class="w-16 py-2">Number</th>
+                        <th class="w-48 py-2">Timestamp</th>
+                        <th class="w-24 py-2">Level</th>
+                        <th class="w-32 py-2">Source IP</th>
+                        <th class="w-24 py-2">Source Port</th>
+                        <th class="w-32 py-2">Destination IP</th>
+                        <th class="w-24 py-2">Destination Port</th>
+                        <th class="w-24 py-2">Protocol</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in log_data.values %}
+                        <tr>
+                            <td class="py-2 text-center">{{ log[0] }}</td>
+                            <td class="py-2 text-center">{{ log[1] }}</td>
+                            <td class="py-2 text-center">{{ log[2] }}</td>
+                            <td class="py-2 text-center">{{ log[3] }}</td>
+                            <td class="py-2 text-center">{{ log[4] }}</td>
+                            <td class="py-2 text-center">{{ log[5] }}</td>
+                            <td class="py-2 text-center">{{ log[6] }}</td>
+                            <td class="py-2 text-center">{{ log[7] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
